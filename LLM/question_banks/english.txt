@@ -1,0 +1,83 @@
+【英語題庫】
+使用說明：每題按以下格式編寫，用【範圍】+【題目】+【答案】分隔多題；【範圍】可標記主題/章節
+
+【解釋可選】
+方式1：帶詳細解釋
+【答案】
+（C）1、解析說明...
+
+方式2：只寫正確答案（簡化）
+【答案】
+（C）
+
+========================================
+【範圍】Grammar / Conditionals
+【題目】
+（）1、Choose the correct form of the verb: If I _____ you were coming, I would have prepared dinner.
+(A) know
+(B) knew
+(C) had known
+(D) would know
+
+【答案】
+（C）1、This is a mixed conditional sentence (third conditional structure).
+The sentence structure requires past perfect in the if-clause: "If I had known..."
+Analysis of options:
+(A) know - simple present, incorrect tense
+(B) knew - simple past, not specific enough
+(C) ✓ had known - past perfect, correct for this conditional
+(D) would know - future/present, doesn't fit the context
+
+========================================
+【範圍】Tense / Present Perfect
+【題目】
+（）2、Which sentence uses the present perfect tense correctly?
+(A) I have been to Paris last year
+(B) She has finished her homework two hours ago
+(C) They have lived in this house for ten years
+(D) He has just went to the store
+
+【答案】
+（C）2、Present perfect tense analysis:
+The present perfect (have/has + past participle) is used for:
+- Experiences with no specific time: "I have been to Paris"
+- Ongoing situations: "They have lived here for ten years" ✓
+- Recent actions: "He has just gone to the store"
+
+(A) Incorrect - "last year" indicates past, use simple past
+(B) Incorrect - "two hours ago" requires simple past
+(C) ✓ Correct - "for ten years" shows duration, needs present perfect
+(D) Incorrect - Wrong past participle (should be "gone")
+
+========================================
+【範圍】Vocabulary / Phrasal Verbs
+【題目】
+（）3、Select the correct phrasal verb: The project was _____ because of lack of funding.
+(A) called off
+(B) called on
+(C) called out
+(D) called up
+
+【答案】
+（A）3、Phrasal verb meanings:
+- call off = cancel
+- call on = request/visit
+- call out = shout/expose
+- call up = telephone/mobilize
+
+(A) ✓ called off - means "cancelled due to lack of funding"
+(B) called on - would mean "requested to participate"
+(C) called out - would mean "shouted about" 
+(D) called up - would mean "telephoned"
+
+The sentence requires "cancelled", so "called off" is correct.
+
+========================================
+
+說明：
+- 每個【範圍】【題目】【答案】配對為一題；【範圍】可標記主題/章節（例：Grammar / Conditionals）
+- 題目格式：（）題號、英文問題 + 四個英文選項 (A)(B)(C)(D)
+- 答案格式可選：
+  * 詳細型：（正確選項）題號、詳細的語法或詞彙解釋
+  * 簡化型：（正確選項） 只寫答案，不寫解釋
+- 可添加任意多題，只需重複【範圍】【題目】【答案】的格式
