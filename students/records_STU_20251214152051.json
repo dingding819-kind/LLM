@@ -1,0 +1,34 @@
+[
+  {
+    "timestamp": "2025-12-14T15:21:49.251339",
+    "question_id": 1,
+    "correct": true,
+    "subject": "数学",
+    "time_spent": 15.0,
+    "score": 100
+  },
+  {
+    "timestamp": "2025-12-14T15:21:49.251747",
+    "question_id": 2,
+    "correct": false,
+    "subject": "英语",
+    "time_spent": 15.0,
+    "score": 0
+  },
+  {
+    "timestamp": "2025-12-14T15:21:49.261071",
+    "question_id": 3,
+    "correct": false,
+    "subject": "数学",
+    "time_spent": 15.0,
+    "score": 0
+  },
+  {
+    "timestamp": "2025-12-14T15:21:49.269291",
+    "question_id": 4,
+    "correct": false,
+    "subject": "英语",
+    "time_spent": 15.0,
+    "score": 0
+  }
+]

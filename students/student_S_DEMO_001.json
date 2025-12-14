@@ -1,0 +1,11 @@
+{
+  "student_id": "S_DEMO_001",
+  "name": "演示学生",
+  "grade": "初二",
+  "weak_subjects": [
+    "数学",
+    "英语"
+  ],
+  "learning_style": "visual",
+  "recent_scores": {}
+}
