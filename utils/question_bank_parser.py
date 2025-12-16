@@ -235,3 +235,39 @@ def load_question_bank(file_path: str, subject: str) -> List[Dict]:
     """
     parser = QuestionBankParser()
     return parser.parse_file(file_path, subject)
+    # --- 新增執行區塊 ---
+if __name__ == '__main__':
+    import os
+    
+    file_path = 'question_banks/math.txt'
+    subject_name = '數學'
+    
+    # 檢查檔案是否存在
+    if not os.path.exists(file_path):
+        print(f"錯誤: 找不到檔案 '{file_path}'")
+        print(f"當前工作目錄: {os.getcwd()}")
+    else:
+        print(f"檔案存在: {file_path}")
+        
+        # 顯示檔案內容前100字元
+        with open(file_path, 'r', encoding='utf-8') as f:
+            preview = f.read(100)
+            print(f"檔案預覽:\n{preview}\n...")
+    # 1. 載入並解析題庫
+    math_questions = load_question_bank(file_path, subject_name)
+    
+    # 2. 輸出檢查結果
+    if math_questions:
+        print(f"成功載入 {len(math_questions)} 題 {subject_name} 題目。")
+        
+        # 輸出第一個題目進行格式檢查
+        print("\n--- 第一題檢查 ---")
+        first_q = math_questions[0]
+        print(f"科目: {first_q.get('subject')}")
+        print(f"範圍: {first_q.get('scope')}")
+        print(f"題目: {first_q.get('question')}")
+        print(f"選項: {first_q.get('options')}")
+        print(f"答案: {first_q.get('correct_answer')}")
+        print(f"解析: {first_q.get('explanation')}")
+    else:
+        print("載入題目失敗或文件內容為空。請檢查文件路徑和格式。")

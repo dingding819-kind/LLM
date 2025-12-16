@@ -18,7 +18,7 @@ OPENAI_MODEL_NAME = os.getenv("OPENAI_MODEL_NAME", "gpt-3.5-turbo")
 # Vertex AI (Gemini) settings
 GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID", "")
 GOOGLE_LOCATION = os.getenv("GOOGLE_LOCATION", "us-central1")
-GEMINI_MODEL_NAME = os.getenv("GEMINI_MODEL_NAME", "gemini-1.5-flash")
+GEMINI_MODEL_NAME = os.getenv("GEMINI_MODEL_NAME", "gemini-2.0-flash")
 
 # Google Generative AI settings
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")

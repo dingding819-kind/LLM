@@ -4,10 +4,14 @@ Interactive learning assistant using LLM
 """
 
 import json
+from pathlib import Path
 from typing import Dict, List, Optional
 from models import LLMClient, QuestionGenerator, ErrorAnalyzer
 from utils import DataProcessor, ReportGenerator
 from config import SUBJECTS, SUBJECT_CORRECTIONS
+
+# Base directory for locating resources regardless of execution CWD
+BASE_DIR = Path(__file__).resolve().parent
 
 
 class KnowledgeFuelStation:
@@ -601,16 +605,15 @@ def interactive_learning_session():
         "自然": "question_banks/science.txt"
     }
     
-    import os
     weak_subjects = student.get('weak_subjects', [])
     loaded_count = 0
     
     for subject in weak_subjects:
         bank_file = subject_to_file.get(subject)
         if bank_file:
-            full_path = os.path.join(os.getcwd(), bank_file)
-            if os.path.exists(full_path):
-                count = app.data_processor.load_question_bank_file(full_path, subject)
+            full_path = (BASE_DIR / bank_file).resolve()
+            if full_path.exists():
+                count = app.data_processor.load_question_bank_file(str(full_path), subject)
                 if count > 0:
                     print(f"  ✓ {subject}: 載入 {count} 題")
                     loaded_count += count

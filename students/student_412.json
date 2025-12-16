@@ -1,0 +1,34 @@
+{
+  "student_id": "412",
+  "name": "Sandy",
+  "grade": "初二",
+  "weak_subjects": [
+    "數學",
+    "國文"
+  ],
+  "learning_style": "visual",
+  "recent_scores": {},
+  "recent_topics": [],
+  "total_sessions": 0,
+  "used_questions": [
+    "a9d946972beb87aee79d1c648b7b4bf2",
+    "cc852d7f0b9a85d4ae45411b8f8711bc",
+    "cf26df19faad6363bd1069521a9e92bf",
+    "a5cd5e334a261061644ff96e590c5036",
+    "aeb7e9e080768a812dcb9d7cad663fdf",
+    "a82b7f6c8ed867eb29ab7b6d36c99d2b",
+    "9137f55a336866751d37f5b540e9f872",
+    "3afda68998874922d94e6f96e9af2ad7",
+    "c296592b4c535bcc5aa2f19a7b2aff68",
+    "34b637630df79e80ced0d0afd49f1873",
+    "a8a41901e323334eb079a9bec87c2340",
+    "802c1db3789b6b98953ea2e20abdb75e",
+    "74dd464956c72ee2e05495886173c191",
+    "021317c51ac2dd12f4f2f7771e92c38f",
+    "df4094c65c5abac697ff3ed0fc98d243",
+    "56fdee939504f1983c981ac82c80ab29",
+    "816ee83d5cb1fabfd820c4d6bfb0e150",
+    "c930818bdd62b4aec183d3371fcc416b"
+  ],
+  "creation_date": "2025-12-15 12:47:07.318051"
+}
