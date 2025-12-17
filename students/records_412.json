@@ -178,5 +178,45 @@
     "score": 0,
     "concept_to_reinforce": "交集定義需要加強",
     "scope": ""
+  },
+  {
+    "timestamp": "2025-12-17T09:20:54.681963",
+    "question_id": 1,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "整數的四則運算/應用問題",
+    "scope": "整數的四則運算/應用問題"
+  },
+  {
+    "timestamp": "2025-12-17T09:21:18.560590",
+    "question_id": 2,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "數與數線/整數的四則運算/應用問題",
+    "scope": "數與數線/整數的四則運算/應用問題"
+  },
+  {
+    "timestamp": "2025-12-17T09:21:50.964453",
+    "question_id": 1,
+    "correct": true,
+    "subject": "語文",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": ""
+  },
+  {
+    "timestamp": "2025-12-17T09:22:05.508781",
+    "question_id": 2,
+    "correct": false,
+    "subject": "語文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "審題能力，辨析關鍵詞。",
+    "scope": ""
   }
 ]
