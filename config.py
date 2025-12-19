@@ -2,21 +2,42 @@
 Configuration file for Knowledge Fuel Station
 """
 import os
+import json
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
 # API Configuration
-# Provider can be: "openai" or "vertexai"
+# Provider can be: "openai", "vertexai", or "generativeai"
 LLM_PROVIDER = os.getenv("LLM_PROVIDER", "vertexai")
+
+# Service Account JSON file path for Vertex AI
+SERVICE_ACCOUNT_JSON_PATH = os.getenv(
+    "SERVICE_ACCOUNT_JSON_PATH",
+    "knowledgefuelstation-d1be8ee129d2.json"
+)
+
+# Load service account credentials if available
+SERVICE_ACCOUNT_INFO = None
+if os.path.exists(SERVICE_ACCOUNT_JSON_PATH):
+    try:
+        with open(SERVICE_ACCOUNT_JSON_PATH, 'r') as f:
+            SERVICE_ACCOUNT_INFO = json.load(f)
+    except Exception as e:
+        print(f"Warning: Could not load service account JSON: {e}")
 
 # OpenAI settings
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 OPENAI_MODEL_NAME = os.getenv("OPENAI_MODEL_NAME", "gpt-3.5-turbo")
 
 # Vertex AI (Gemini) settings
-GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID", "")
+# Auto-detect project ID from service account if available
+if SERVICE_ACCOUNT_INFO and "project_id" in SERVICE_ACCOUNT_INFO:
+    GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID", SERVICE_ACCOUNT_INFO["project_id"])
+else:
+    GOOGLE_PROJECT_ID = os.getenv("GOOGLE_PROJECT_ID", "")
+
 GOOGLE_LOCATION = os.getenv("GOOGLE_LOCATION", "us-central1")
 GEMINI_MODEL_NAME = os.getenv("GEMINI_MODEL_NAME", "gemini-2.0-flash")
 

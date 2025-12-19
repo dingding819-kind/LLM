@@ -1,6 +1,8 @@
 """
 LLM Client for interacting with OpenAI or Vertex AI (Gemini)
 """
+import os
+import json
 from typing import Optional, Dict, List
 from config import (
     LLM_PROVIDER,
@@ -13,6 +15,8 @@ from config import (
     GEMINI_MODEL_NAME,
     GOOGLE_API_KEY,
     GENERATIVEAI_MODEL_NAME,
+    SERVICE_ACCOUNT_JSON_PATH,
+    SERVICE_ACCOUNT_INFO,
 )
 
 # Lazy imports inside client to avoid hard dependency
@@ -62,13 +66,24 @@ class LLMClient:
                 import vertexai
                 from vertexai.generative_models import GenerativeModel
                 self._GenerativeModel = GenerativeModel
-                # Initialize Vertex AI with ADC or env credentials
+                
                 project = GOOGLE_PROJECT_ID or None
                 location = GOOGLE_LOCATION or "us-central1"
+                
+                # Set up authentication using service account JSON if available
+                if SERVICE_ACCOUNT_INFO and os.path.exists(SERVICE_ACCOUNT_JSON_PATH):
+                    # Set the credentials environment variable
+                    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.abspath(SERVICE_ACCOUNT_JSON_PATH)
+                    print(f"Using service account credentials from: {SERVICE_ACCOUNT_JSON_PATH}")
+                
+                # Initialize Vertex AI with project and location
                 if project:
                     vertexai.init(project=project, location=location)
+                    print(f"Vertex AI initialized with project: {project}, location: {location}")
                 else:
                     vertexai.init(location=location)
+                    print(f"Vertex AI initialized with location: {location}")
+                    
             except Exception as e:
                 print(f"Error initializing Vertex AI client: {e}")
                 self._GenerativeModel = None
