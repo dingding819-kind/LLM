@@ -218,5 +218,105 @@
     "score": 0,
     "concept_to_reinforce": "審題能力，辨析關鍵詞。",
     "scope": ""
+  },
+  {
+    "timestamp": "2025-12-17T14:00:22.893865",
+    "question_id": 1,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "負數與數線",
+    "scope": "負數與數線"
+  },
+  {
+    "timestamp": "2025-12-17T14:03:28.033926",
+    "question_id": 1,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "負數與數線",
+    "scope": "負數與數線"
+  },
+  {
+    "timestamp": "2025-12-17T14:04:10.224110",
+    "question_id": 2,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "負數與數線",
+    "scope": "負數與數線"
+  },
+  {
+    "timestamp": "2025-12-17T14:04:56.100515",
+    "question_id": 1,
+    "correct": false,
+    "subject": "語文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "標點符號與語法結構辨析",
+    "scope": ""
+  },
+  {
+    "timestamp": "2025-12-17T14:06:00.407527",
+    "question_id": 2,
+    "correct": false,
+    "subject": "語文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "文言文詞彙和語法需加強",
+    "scope": ""
+  },
+  {
+    "timestamp": "2025-12-20T16:15:34.856353",
+    "question_id": 1,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "數學／第1冊／一元一次方程式／式子的化簡",
+    "scope": "數學／第1冊／一元一次方程式／式子的化簡"
+  },
+  {
+    "timestamp": "2025-12-20T16:15:49.521366",
+    "question_id": 2,
+    "correct": true,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "分數的運算／最大公因數與最小公倍數"
+  },
+  {
+    "timestamp": "2025-12-20T16:16:01.683368",
+    "question_id": 3,
+    "correct": true,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "一元一次方程式／以符號代表數"
+  },
+  {
+    "timestamp": "2025-12-20T16:16:13.357581",
+    "question_id": 4,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "指數律與科學記號",
+    "scope": "指數律與科學記號"
+  },
+  {
+    "timestamp": "2025-12-20T16:16:24.721161",
+    "question_id": 5,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "數與數線／數的大小與絕對值",
+    "scope": "數與數線／數的大小與絕對值"
   }
 ]
