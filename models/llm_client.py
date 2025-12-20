@@ -74,15 +74,12 @@ class LLMClient:
                 if SERVICE_ACCOUNT_INFO and os.path.exists(SERVICE_ACCOUNT_JSON_PATH):
                     # Set the credentials environment variable
                     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.abspath(SERVICE_ACCOUNT_JSON_PATH)
-                    print(f"Using service account credentials from: {SERVICE_ACCOUNT_JSON_PATH}")
                 
                 # Initialize Vertex AI with project and location
                 if project:
                     vertexai.init(project=project, location=location)
-                    print(f"Vertex AI initialized with project: {project}, location: {location}")
                 else:
                     vertexai.init(location=location)
-                    print(f"Vertex AI initialized with location: {location}")
                     
             except Exception as e:
                 print(f"Error initializing Vertex AI client: {e}")

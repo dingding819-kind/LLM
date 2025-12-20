@@ -339,6 +339,51 @@ class DataProcessor:
         import random
         return random.choice(available_questions)
 
+    def get_questions_by_scope(
+        self,
+        scope: str,
+        subject: Optional[str] = None,
+        used_questions: Optional[List[str]] = None,
+        limit: int = 1
+    ) -> List[Dict]:
+        """
+        根據範圍（可選科目）從題庫取得題目
+        
+        Args:
+            scope: 題目範圍（與題庫中的 scope 欄位匹配）
+            subject: 限定科目（可選）
+            used_questions: 已使用題目的雜湊值列表（避免重複）
+            limit: 需要取得的題目數量
+        
+        Returns:
+            題目列表（長度不超過 limit）
+        """
+        results: List[Dict] = []
+        if not self.question_bank or not scope:
+            return results
+        used_questions = used_questions or []
+        
+        # 篩選範圍與科目
+        candidates = [
+            q for q in self.question_bank
+            if (q.get('scope') == scope) and (subject is None or q.get('subject') == subject)
+        ]
+        if not candidates:
+            return results
+        
+        # 過濾掉已使用的
+        available = [q for q in candidates if self._get_question_hash(q) not in used_questions]
+        if not available:
+            available = candidates  # 若都用過，允許重複
+        
+        import random
+        random.shuffle(available)
+        for q in available:
+            results.append(q)
+            if len(results) >= limit:
+                break
+        return results
+
     def has_question_bank(self, subject: Optional[str] = None) -> bool:
         """
         檢查是否有題庫可用

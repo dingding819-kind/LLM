@@ -1,0 +1,352 @@
+[
+  {
+    "timestamp": "2025-12-20T20:37:40.962877",
+    "question_id": 1,
+    "correct": false,
+    "subject": "國文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T20:41:20.012563",
+    "question_id": 1,
+    "correct": true,
+    "subject": "國文",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T20:41:41.128433",
+    "question_id": 2,
+    "correct": false,
+    "subject": "國文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T20:50:48.341007",
+    "question_id": 1,
+    "correct": true,
+    "subject": "國文",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T20:51:09.321293",
+    "question_id": 2,
+    "correct": false,
+    "subject": "國文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T20:53:47.899841",
+    "question_id": 1,
+    "correct": false,
+    "subject": "國文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T21:00:33.005408",
+    "question_id": 1,
+    "correct": false,
+    "subject": "國文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T21:00:42.977494",
+    "question_id": 2,
+    "correct": true,
+    "subject": "國文",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T21:01:14.234968",
+    "question_id": 3,
+    "correct": false,
+    "subject": "國文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T21:19:24.358289",
+    "question_id": 1,
+    "correct": true,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "地理:臺灣的自然環境-天氣"
+  },
+  {
+    "timestamp": "2025-12-20T21:20:23.856624",
+    "question_id": 2,
+    "correct": true,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "地理:臺灣的自然環境-生態系統與環境問題"
+  },
+  {
+    "timestamp": "2025-12-20T21:20:39.149097",
+    "question_id": 3,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "歷史:臺灣的歷史-國際競爭時期",
+    "scope": "歷史:臺灣的歷史-國際競爭時期"
+  },
+  {
+    "timestamp": "2025-12-20T21:20:50.277338",
+    "question_id": 4,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "公民:個人成長與群體-生命教育",
+    "scope": "公民:個人成長與群體-生命教育"
+  },
+  {
+    "timestamp": "2025-12-20T21:21:04.679814",
+    "question_id": 5,
+    "correct": true,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "地理:臺灣的自然環境-地形"
+  },
+  {
+    "timestamp": "2025-12-20T21:24:16.978382",
+    "question_id": 1,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "歷史:臺灣的歷史-國際競爭時期",
+    "scope": "歷史:臺灣的歷史-國際競爭時期"
+  },
+  {
+    "timestamp": "2025-12-20T21:26:15.003923",
+    "question_id": 1,
+    "correct": true,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": ""
+  },
+  {
+    "timestamp": "2025-12-20T21:33:39.348657",
+    "question_id": 1,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "歷史:臺灣的歷史-史前時代",
+    "scope": "歷史:臺灣的歷史-史前時代"
+  },
+  {
+    "timestamp": "2025-12-20T23:00:55.916531",
+    "question_id": 1,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "公民:個人成長與群體-生命教育",
+    "scope": "公民:個人成長與群體-生命教育"
+  },
+  {
+    "timestamp": "2025-12-20T23:01:52.366335",
+    "question_id": 1,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "公民:個人成長與群體-生命教育",
+    "scope": "公民:個人成長與群體-生命教育"
+  },
+  {
+    "timestamp": "2025-12-20T23:02:14.044863",
+    "question_id": 2,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "公民:個人成長與群體-生命教育",
+    "scope": "公民:個人成長與群體-生命教育"
+  },
+  {
+    "timestamp": "2025-12-20T23:02:51.260491",
+    "question_id": 3,
+    "correct": true,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "公民:個人成長與群體-生命教育"
+  },
+  {
+    "timestamp": "2025-12-20T23:03:08.219762",
+    "question_id": 4,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "公民:個人成長與群體-生命教育",
+    "scope": "公民:個人成長與群體-生命教育"
+  },
+  {
+    "timestamp": "2025-12-20T23:03:31.013226",
+    "question_id": 5,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "公民:個人成長與群體-生命教育",
+    "scope": "公民:個人成長與群體-生命教育"
+  },
+  {
+    "timestamp": "2025-12-20T23:30:34.289999",
+    "question_id": 1,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "公民:個人成長與群體-生命教育",
+    "scope": "公民:個人成長與群體-生命教育"
+  },
+  {
+    "timestamp": "2025-12-20T23:30:46.281982",
+    "question_id": 2,
+    "correct": true,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "公民:個人成長與群體-生命教育"
+  },
+  {
+    "timestamp": "2025-12-20T23:30:56.729675",
+    "question_id": 3,
+    "correct": true,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "公民:個人成長與群體-生命教育"
+  },
+  {
+    "timestamp": "2025-12-20T23:31:22.188165",
+    "question_id": 4,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "歷史:臺灣的歷史-國際競爭時期",
+    "scope": "歷史:臺灣的歷史-國際競爭時期"
+  },
+  {
+    "timestamp": "2025-12-20T23:31:32.035027",
+    "question_id": 5,
+    "correct": true,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "歷史:臺灣的歷史-國際競爭時期"
+  },
+  {
+    "timestamp": "2025-12-20T23:31:47.977916",
+    "question_id": 6,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "歷史:臺灣的歷史-國際競爭時期",
+    "scope": "歷史:臺灣的歷史-國際競爭時期"
+  },
+  {
+    "timestamp": "2025-12-20T23:45:55.373710",
+    "question_id": 1,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "一元一次方程式/解一元一次方程式(含等量公理)",
+    "scope": "一元一次方程式/解一元一次方程式(含等量公理)"
+  },
+  {
+    "timestamp": "2025-12-20T23:57:04.503680",
+    "question_id": 1,
+    "correct": false,
+    "subject": "語文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T23:58:42.841696",
+    "question_id": 2,
+    "correct": false,
+    "subject": "語文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T23:59:13.378274",
+    "question_id": 1,
+    "correct": false,
+    "subject": "語文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T23:59:25.031287",
+    "question_id": 2,
+    "correct": false,
+    "subject": "語文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T23:59:35.139111",
+    "question_id": 3,
+    "correct": false,
+    "subject": "語文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
+  }
+]

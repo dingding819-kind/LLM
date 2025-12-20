@@ -112,5 +112,15 @@
     "score": 0,
     "concept_to_reinforce": "雅量",
     "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-20T20:12:28.320575",
+    "question_id": 1,
+    "correct": false,
+    "subject": "國文",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "雅量",
+    "scope": "雅量"
   }
 ]
