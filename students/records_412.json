@@ -318,5 +318,55 @@
     "score": 0,
     "concept_to_reinforce": "數與數線／數的大小與絕對值",
     "scope": "數與數線／數的大小與絕對值"
+  },
+  {
+    "timestamp": "2025-12-20T23:34:12.905861",
+    "question_id": 1,
+    "correct": true,
+    "subject": "gj4vm",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": ""
+  },
+  {
+    "timestamp": "2025-12-20T23:36:25.198926",
+    "question_id": 2,
+    "correct": false,
+    "subject": "gj4vm",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "gj4vm整數判斷方法不熟",
+    "scope": ""
+  },
+  {
+    "timestamp": "2025-12-20T23:36:40.658325",
+    "question_id": 3,
+    "correct": true,
+    "subject": "6",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": ""
+  },
+  {
+    "timestamp": "2025-12-20T23:36:53.150352",
+    "question_id": 4,
+    "correct": false,
+    "subject": "6",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "化學式書寫規則不熟練",
+    "scope": ""
+  },
+  {
+    "timestamp": "2025-12-20T23:37:32.471905",
+    "question_id": 1,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "分數的運算／最大公因數與最小公倍數",
+    "scope": "分數的運算／最大公因數與最小公倍數"
   }
 ]

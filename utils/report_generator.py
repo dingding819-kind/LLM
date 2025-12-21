@@ -46,25 +46,6 @@ class ReportGenerator:
                 report += f"  正確數：{data['correct']}\n"
                 report += f"  正確率：{data['accuracy']:.1f}%\n"
         
-        if progress_summary['weak_areas']:
-            report += "\n【需要改進的科目】(按優先級)\n"
-            for i, subject in enumerate(progress_summary['weak_areas'], 1):
-                report += f"{i}. {subject}\n"
-        
-        # Concepts to reinforce (from recent errors)
-        concepts = progress_summary.get('concepts_to_reinforce', [])
-        if concepts:
-            report += "\n【需要補強的觀念】\n"
-            concept_count = {}
-            for concept in concepts:
-                if concept:
-                    concept_count[concept] = concept_count.get(concept, 0) + 1
-            sorted_concepts = sorted(concept_count.items(), key=lambda x: x[1], reverse=True)
-            for concept, count in sorted_concepts[:5]:
-                marker = "⚠️" if count >= 2 else "•"
-                extra = f" (出現 {count} 次)" if count > 1 else ""
-                report += f"{marker} {concept}{extra}\n"
-        
         report += "\n" + "="*50 + "\n"
         return report
 
@@ -110,10 +91,12 @@ class ReportGenerator:
     @staticmethod
     def generate_recommendations(
         progress_summary: Dict,
-        error_patterns: Optional[Dict] = None
+        error_patterns: Optional[Dict] = None,
+        session_subjects: Optional[Dict] = None,
+        missed_scopes: Optional[List[str]] = None
     ) -> str:
         """
-        Generate personalized learning recommendations
+        Generate personalized learning recommendations based on session results
         
         Args:
             progress_summary: Progress summary
@@ -122,35 +105,30 @@ class ReportGenerator:
         Returns:
             Recommendations text
         """
-        recommendations = "【學習建議】\n\n"
+        recommendations = "【針對本次問答的建議】\n\n"
         
-        accuracy = progress_summary['accuracy']
-        
-        if accuracy < 60:
-            recommendations += "⚠️ 整體表現需要顯著改進\n"
-            recommendations += "   • 建議每天花更多時間學習基礎知識\n"
-            recommendations += "   • 針對正確率最低的科目進行重點複習\n"
-            recommendations += "   • 考慮尋求額外的學習資源或輔導\n\n"
-        elif accuracy < 75:
-            recommendations += "📈 表現良好，但仍有改進空間\n"
-            recommendations += "   • 繼續加強弱科目的學習\n"
-            recommendations += "   • 進行更多類似錯題的練習\n"
-            recommendations += "   • 逐步增加題目難度\n\n"
+        subjects = session_subjects or progress_summary.get('subjects', {})
+        if subjects:
+            for subject, data in subjects.items():
+                acc = data.get('accuracy', 0.0)
+                recommendations += f"{subject}:\n"
+                recommendations += f"  本次正確率：{acc:.1f}%\n"
         else:
-            recommendations += "🌟 表現優秀，繼續保持\n"
-            recommendations += "   • 可以嘗試更高難度的題目\n"
-            recommendations += "   • 幫助其他同學學習相關知識點\n\n"
-        
-        # Subject-specific recommendations
-        if progress_summary['weak_areas']:
-            recommendations += "針對薄弱科目的建議：\n"
-            for i, subject in enumerate(progress_summary['weak_areas'][:3], 1):
-                if subject in progress_summary['subjects']:
-                    data = progress_summary['subjects'][subject]
-                    recommendations += f"\n{i}. {subject} (正確率: {data['accuracy']:.1f}%)\n"
-                    recommendations += f"   • 進行{max(5, 10-int(data['accuracy']/10))}次練習\n"
-                    recommendations += f"   • 重點複習基礎知識\n"
-                    recommendations += f"   • 在練習中記錄常見錯誤\n"
+            recommendations += "（本次無題目）\n"
+
+        # List missed scopes/ranges in this session
+        if missed_scopes:
+            # Deduplicate while preserving order
+            seen = set()
+            unique_scopes: List[str] = []
+            for sc in missed_scopes:
+                if sc and sc not in seen:
+                    seen.add(sc)
+                    unique_scopes.append(sc)
+            if unique_scopes:
+                recommendations += "\n本次錯過範圍：\n"
+                for sc in unique_scopes:
+                    recommendations += f"• {sc}\n"
         
         return recommendations
 

@@ -355,6 +355,145 @@ class KnowledgeFuelStation:
         
         return followup
 
+    def _get_session_error_scopes(self, session: Dict) -> Dict[str, int]:
+        """
+        Count errors per scope in current session
+        
+        Returns:
+            Dict mapping scope -> error count
+        """
+        scope_errors: Dict[str, int] = {}
+        for i, question in enumerate(session.get("questions", [])):
+            if i < len(session.get("responses", [])) and not session["responses"][i].get("is_correct"):
+                scope = question.get("topic") or question.get("scope") or "未分類"
+                scope_errors[scope] = scope_errors.get(scope, 0) + 1
+        return scope_errors
+
+    def _get_historical_error_scopes(self, student_id: str, top_n: int = 3) -> List[str]:
+        """
+        Get top N error scopes from historical records
+        
+        Args:
+            student_id: Student ID
+            top_n: Number of top scopes to return
+            
+        Returns:
+            List of scope names sorted by error frequency
+        """
+        scope_errors: Dict[str, int] = {}
+        
+        # Load all historical records for this student
+        records = self.data_processor.get_learning_records(student_id)
+        if not records:
+            return []
+        
+        for record in records:
+            if record.get("correct") is False:
+                scope = record.get("scope") or "未分類"
+                scope_errors[scope] = scope_errors.get(scope, 0) + 1
+        
+        # Sort by error count (descending) and return top N
+        sorted_scopes = sorted(scope_errors.items(), key=lambda x: x[1], reverse=True)
+        return [scope for scope, _ in sorted_scopes[:top_n]]
+
+    def _generate_review_questions(
+        self,
+        review_mode: str,  # "session" or "history"
+        session: Optional[Dict] = None,
+        num_questions: int = 5
+    ) -> List[Dict]:
+        """
+        Generate review questions based on mode
+        
+        Args:
+            review_mode: "session" or "history"
+            session: Current session data (for session mode)
+            num_questions: Number of questions to generate
+            
+        Returns:
+            List of review questions
+        """
+        # Base used hashes: already asked questions for this session + historically used
+        existing_used_hashes: List[str] = []
+        if self.current_student:
+            existing_used_hashes.extend(self.current_student.get("used_questions", []))
+        session_used_hashes: List[str] = []
+        if session:
+            for q in session.get("questions", []):
+                session_used_hashes.append(self.data_processor._get_question_hash(q))
+
+        if review_mode == "session" and session:
+            # Generate based on session error scopes with weighted distribution
+            scope_errors = self._get_session_error_scopes(session)
+            if not scope_errors:
+                return []
+            
+            # Map scope -> subject seen in session
+            scope_subject: Dict[str, str] = {}
+            for q in session.get("questions", []):
+                sc = q.get("topic") or q.get("scope") or ""
+                if sc and sc not in scope_subject:
+                    scope_subject[sc] = q.get("subject")
+            
+            # Prepare scopes sorted by error frequency
+            scopes_sorted = sorted(scope_errors.items(), key=lambda x: x[1], reverse=True)
+            target_scopes = [s for s, _ in scopes_sorted]
+            
+            questions: List[Dict] = []
+            used_hashes: List[str] = existing_used_hashes + session_used_hashes
+            idx = 0
+            while len(questions) < num_questions and target_scopes:
+                scope = target_scopes[idx % len(target_scopes)]
+                subj = scope_subject.get(scope)
+                qs = self.data_processor.get_questions_by_scope(scope=scope, subject=subj, used_questions=used_hashes, limit=1)
+                if qs:
+                    q = qs[0]
+                    questions.append({
+                        "id": len(questions)+1,
+                        "subject": q.get("subject", subj or ""),
+                        "difficulty": "中等",
+                        "question": q.get("question", ""),
+                        "options": q.get("options", {}),
+                        "standard_answer": q.get("correct_answer", "A"),
+                        "explanation": q.get("explanation", ""),
+                        "topic": q.get("scope", scope),
+                        "source": "question_bank"
+                    })
+                    used_hashes.append(self.data_processor._get_question_hash(q))
+                idx += 1
+                if idx > 50:
+                    break
+            return questions[:num_questions]
+        
+        elif review_mode == "history":
+            # Generate based on top historical error scopes
+            top_scopes = self._get_historical_error_scopes(
+                self.current_student["student_id"],
+                top_n=3
+            )
+            if not top_scopes:
+                return []
+            questions: List[Dict] = []
+            used_hashes: List[str] = existing_used_hashes + session_used_hashes
+            for scope in top_scopes:
+                qs = self.data_processor.get_questions_by_scope(scope=scope, subject=None, used_questions=used_hashes, limit=3)
+                for q in qs:
+                    questions.append({
+                        "id": len(questions)+1,
+                        "subject": q.get("subject", ""),
+                        "difficulty": "中等",
+                        "question": q.get("question", ""),
+                        "options": q.get("options", {}),
+                        "standard_answer": q.get("correct_answer", "A"),
+                        "explanation": q.get("explanation", ""),
+                        "topic": q.get("scope", scope),
+                        "source": "question_bank"
+                    })
+                    used_hashes.append(self.data_processor._get_question_hash(q))
+            return questions[:9]  # 3 scopes × 3 questions
+        
+        return []
+
     def end_session(self, session: Dict) -> Dict:
         """
         End learning session and generate report
@@ -399,8 +538,33 @@ class KnowledgeFuelStation:
             session["student_name"],
             progress
         )
-        
-        recommendations = self.report_generator.generate_recommendations(progress)
+
+        # Compute per-subject accuracy for the current session only
+        session_subjects: Dict[str, Dict] = {}
+        for i, question in enumerate(session.get("questions", [])):
+            if i < len(session.get("responses", [])):
+                subj = question.get("subject", "未指定")
+                stats = session_subjects.setdefault(subj, {"total": 0, "correct": 0, "accuracy": 0.0})
+                stats["total"] += 1
+                if session["responses"][i].get("is_correct"):
+                    stats["correct"] += 1
+        for subj, data in session_subjects.items():
+            data["accuracy"] = (data["correct"] / data["total"] * 100) if data["total"] > 0 else 0.0
+
+        # Collect missed scopes (ranges) for incorrect answers in this session
+        missed_scopes: List[str] = []
+        for i, question in enumerate(session.get("questions", [])):
+            if i < len(session.get("responses", [])) and not session["responses"][i].get("is_correct"):
+                scope = question.get("topic") or question.get("scope") or ""
+                if scope:
+                    missed_scopes.append(scope)
+
+        # Recommendations should reflect this session only
+        recommendations = self.report_generator.generate_recommendations(
+            progress,
+            session_subjects=session_subjects,
+            missed_scopes=missed_scopes
+        )
         
         summary = {
             "session_id": session.get("student_id") + "_" + str(__import__('datetime').datetime.now().timestamp()),
@@ -508,9 +672,13 @@ class KnowledgeFuelStation:
         feedback += analysis.get("explanation", "")
         
         if analysis.get("hints"):
-            feedback += "\n\n📝 改進建議：\n"
+            # 僅提供精簡建議內容，不包含思考過程的前綴
             for hint in analysis["hints"][:2]:
-                feedback += f"• {hint}\n"
+                clean_hint = hint
+                # 去除常見的冗長前綴
+                for prefix in ["好的，以下提供", "提示一：", "提示二：", "提示三：", "請思考：", "建議："]:
+                    clean_hint = clean_hint.replace(prefix, "").strip()
+                feedback += f"• {clean_hint}\n"
         
         return feedback
 
@@ -561,16 +729,16 @@ def interactive_learning_session():
     
     app = KnowledgeFuelStation()
     
-    # Get student info
-    student_id = input("請輸入學生ID: ").strip()
+    # Use default student ID (no need to ask)
+    student_id = "S_DEFAULT_001"
     
     # Try to load existing student or create new one
     student = app.load_student(student_id)
     
     if not student:
-        print("\n沒有找到該學生，建立新資料...\n")
-        name = input("學生姓名: ").strip()
-        grade = input("年級（如：初一）: ").strip()
+        print("\n沒有找到預設學生，建立新資料...\n")
+        name = "默認學生"
+        grade = "初一"
         
         print(f"\n可選科目：{', '.join(SUBJECTS)}\n")
         weak_subjects_input = input("請輸入需要改進的科目（用逗號分隔）: ").strip()
@@ -586,29 +754,44 @@ def interactive_learning_session():
             grade=grade,
             weak_subjects=weak_subjects
         )
-        print(f"\n✅ 已建立學生資料：{name}")
-    else:
-        print(f"\n科目：{', '.join(student.get('weak_subjects', ['未設定']))}")
+        print(f"\n✅ 已建立預設學生資料：{name}")
     
     print(f"\n歡迎，{student['name']}！")
     
-    # Auto-load question banks for selected subjects
+    # Ask user to select subjects for this session (no pre-loaded default)
+    print("\n" + "="*50)
+    print(f"可選科目：{', '.join(SUBJECTS)}\n")
+    subjects_input = input("請輸入本次要學習的科目（用逗號分隔）: ").strip()
+    
+    if not subjects_input:
+        print("沒有選擇任何科目，使用預設科目：數學")
+        selected_subjects = ["數學"]
+    else:
+        selected_subjects = [s.strip() for s in subjects_input.split(',') if s.strip()]
+
+    # 先校正科目名稱，確保首次選擇也能正確載入題庫
+    corrected_subjects = [app.correct_subject_name(s) for s in selected_subjects]
+    if corrected_subjects != selected_subjects:
+        print(f"已校正科目：{', '.join(corrected_subjects)}")
+    selected_subjects = corrected_subjects
+    
+    # Load question banks for selected subjects
     print("\n" + "="*50)
     print("自動載入題庫...\n")
     
     # Map subjects to question bank files
     subject_to_file = {
         "國文": "question_banks/chinese.txt",
+        "語文": "question_banks/chinese.txt",
         "英語": "question_banks/english.txt",
         "數學": "question_banks/math.txt",
         "社會": "question_banks/society.txt",
         "自然": "question_banks/science.txt"
     }
     
-    weak_subjects = student.get('weak_subjects', [])
     loaded_count = 0
     
-    for subject in weak_subjects:
+    for subject in selected_subjects:
         bank_file = subject_to_file.get(subject)
         if bank_file:
             full_path = (BASE_DIR / bank_file).resolve()
@@ -626,17 +809,39 @@ def interactive_learning_session():
         print(f"\n✅ 共載入 {loaded_count} 題題庫\n")
     else:
         print(f"\n⚠ 未能載入任何題庫，將使用AI生成\n")
-    
-    # Ask if user wants to change subjects for this session
-    print("\n" + "="*50)
-    change_subjects = input("要重新選擇本次學習科目嗎？(y/n): ").strip().lower()
-    
-    selected_subjects = None
-    if change_subjects in ['y', 'yes', '是']:
-        print(f"\n可選科目：{', '.join(SUBJECTS)}\n")
-        subjects_input = input("請輸入本次要學習的科目（用逗號分隔）: ").strip()
-        if subjects_input:
-            selected_subjects = [s.strip() for s in subjects_input.split(',') if s.strip()]
+
+        # Reload question banks for newly selected subjects
+        print("\n" + "="*50)
+        print("重新載入題庫...\n")
+        
+        subject_to_file = {
+            "國文": "question_banks/chinese.txt",
+            "語文": "question_banks/chinese.txt",
+            "英語": "question_banks/english.txt",
+            "數學": "question_banks/math.txt",
+            "社會": "question_banks/society.txt",
+            "自然": "question_banks/science.txt"
+        }
+        
+        loaded_count = 0
+        for subject in selected_subjects:
+            bank_file = subject_to_file.get(subject)
+            if bank_file:
+                full_path = (BASE_DIR / bank_file).resolve()
+                if full_path.exists():
+                    count = app.data_processor.load_question_bank_file(str(full_path), subject)
+                    if count > 0:
+                        print(f"  ✓ {subject}: 載入 {count} 題")
+                        loaded_count += count
+                else:
+                    print(f"  ⚠ {subject}: 題庫文件不存在 ({bank_file})")
+            else:
+                print(f"  ⚠ {subject}: 無對應題庫")
+        
+        if loaded_count > 0:
+            print(f"\n✅ 共載入 {loaded_count} 題題庫\n")
+        else:
+            print(f"\n⚠ 未能載入任何題庫，將使用AI生成\n")
 
         # Optional: topic selection per subject
         choose_topics = input("\n是否要為本次科目指定主題範圍？(y/n): ").strip().lower()
@@ -723,10 +928,7 @@ def interactive_learning_session():
     
     summary = app.end_session(session)
     # Graceful handling if LLM failed to generate questions
-    total_questions = summary.get('total_questions', 0)
-    correct_answers = summary.get('correct_answers', 0)
     accuracy = summary.get('accuracy', 0.0)
-    print(f"題目完成率：{correct_answers}/{total_questions}")
     print(f"正確率：{accuracy:.1f}%\n")
     if 'report' in summary:
         print(summary['report'])
@@ -741,7 +943,107 @@ def interactive_learning_session():
             f"report_{student_id}_{summary.get('session_id','session')[:10]}.txt"
         )
         print(f"✅ 報告已保存")
-    print(f"✅ 報告已保存")
+    
+    # Ask if student wants error review
+    print("\n" + "="*50)
+    do_review = input("要進行錯題回顧嗎？(y/n): ").strip().lower()
+    
+    if do_review not in ['y', 'yes', '是']:
+        print("\n感謝使用知識加油站。再見！")
+        return
+    
+    # Ask review mode
+    print("\n請選擇回顧模式：")
+    print("1. 本次問答")
+    print("2. 過往紀錄")
+    review_choice = input("請輸入選擇 (1/2): ").strip()
+    
+    review_mode = "session" if review_choice == "1" else "history"
+    
+    # Check if this session was perfect (100% correct)
+    if review_mode == "session":
+        session_accuracy = summary.get('accuracy', 0.0)
+        if session_accuracy == 100.0:
+            print("\n🎉 這次正確率100趴，太棒了！")
+            print("\n感謝使用知識加油站。再見！")
+            return
+    
+    # Generate review questions
+    print("\n正在生成錯題回顧題目...\n")
+    review_questions = app._generate_review_questions(
+        review_mode=review_mode,
+        session=session if review_mode == "session" else None,
+        num_questions=5 if review_mode == "session" else 9
+    )
+    
+    if not review_questions:
+        print("無法生成回顧題目")
+        return
+    
+    print(f"已生成 {len(review_questions)} 道回顧題目\n")
+    
+    # Review session loop
+    review_session = {
+        "student_id": student_id,
+        "student_name": student['name'],
+        "questions": review_questions,
+        "responses": [],
+        "session_start": str(__import__('datetime').datetime.now()),
+        "is_review": True,
+        "review_mode": review_mode
+    }
+    
+    for i, question in enumerate(review_session['questions'], 1):
+        source_label = "📚 題庫" if question.get('source') == 'question_bank' else "🤖 AI生成"
+        print(f"\n【回顧 {i}/{len(review_session['questions'])} 題】{source_label}")
+        print(f"科目：{question['subject']}")
+        print(f"\n題目：{question['question']}\n")
+        
+        options = question.get('options', {})
+        if options:
+            for key in ['A', 'B', 'C', 'D']:
+                if key in options:
+                    print(f"{key}. {options[key]}")
+        
+        student_answer = input("\n請選擇答案 (A/B/C/D): ").strip().upper()
+        
+        if student_answer not in ['A', 'B', 'C', 'D']:
+            print("❌ 請輸入有效的選項 (A/B/C/D)")
+            continue
+        
+        feedback = app.process_answer(review_session, i-1, student_answer)
+        print(f"\n{feedback['feedback']}")
+        
+        correct_answer = question.get('standard_answer', '')
+        if student_answer != correct_answer:
+            print(f"\n正確答案：{correct_answer}")
+            if question.get('explanation'):
+                print(f"解釋：{question['explanation']}")
+        
+        input("\n按 Enter 繼續下一題...")
+    
+    # End review session and generate report only (no recommendations)
+    print("\n" + "="*50)
+    print("錯題回顧結束")
+    print("="*50 + "\n")
+    
+    review_summary = app.end_session(review_session)
+    accuracy = review_summary.get('accuracy', 0.0)
+    print(f"正確率：{accuracy:.1f}%\n")
+    if 'report' in review_summary:
+        print(review_summary['report'])
+    # Note: No recommendations for review session
+    
+    # Save review results
+    review_report_text = review_summary.get('report', '').strip()
+    if review_report_text:
+        ReportGenerator.export_report_to_file(
+            review_report_text,
+            f"review_{student_id}_{review_summary.get('session_id','session')[:10]}.txt"
+        )
+        print(f"✅ 回顧報告已保存")
+    
+    print("\n感謝使用知識加油站。再見！")
 
 
 if __name__ == "__main__":

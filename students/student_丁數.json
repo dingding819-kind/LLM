@@ -1,0 +1,17 @@
+{
+  "student_id": "丁數",
+  "name": "丁數",
+  "grade": "初一",
+  "weak_subjects": [
+    "數學"
+  ],
+  "learning_style": "visual",
+  "recent_scores": {},
+  "recent_topics": [],
+  "total_sessions": 0,
+  "used_questions": [
+    "56fdee939504f1983c981ac82c80ab29",
+    "816ee83d5cb1fabfd820c4d6bfb0e150"
+  ],
+  "creation_date": "2025-12-16 14:45:09.373513"
+}
