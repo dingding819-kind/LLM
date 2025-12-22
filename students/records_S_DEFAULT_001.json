@@ -458,5 +458,25 @@
     "score": 0,
     "concept_to_reinforce": "Where 引導的問句及答句，問地方，場所介詞，介紹國家",
     "scope": "Where 引導的問句及答句，問地方，場所介詞，介紹國家"
+  },
+  {
+    "timestamp": "2025-12-22T15:59:46.717219",
+    "question_id": 1,
+    "correct": true,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "分數的運算／正負分數的乘除與四則運算"
+  },
+  {
+    "timestamp": "2025-12-22T16:00:03.770472",
+    "question_id": 2,
+    "correct": false,
+    "subject": "社會",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "公民:個人成長與群體-學校生活",
+    "scope": "公民:個人成長與群體-學校生活"
   }
 ]

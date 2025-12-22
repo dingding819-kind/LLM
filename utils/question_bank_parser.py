@@ -116,15 +116,21 @@ class QuestionBankParser:
             if clean_line:
                 question_lines.append(clean_line)
 
-        # 若尚未解析到選項，嘗試從單行內的 (A)(B)... 形式抽取
+        # 若尚未解析到選項，嘗試從單行內的 (A)(B)... 形式抽取（含全形）
         if not options:
             combined = ' '.join(question_lines)
-            inline_pattern = r'[（(]([A-D])[）)]\s*([^（(]+?)(?=(?:[（(][A-D][）)])|$)'
-            inline_options = {m.group(1): m.group(2).strip() for m in re.finditer(inline_pattern, combined)}
+            inline_pattern = r'[（(]\s*([A-DＡＢＣＤa-d])\s*[）)]\s*([^（(]+?)(?=(?:[（(][A-DＡＢＣＤa-d][）)])|$)'
+            fullwidth_map = {'Ａ': 'A', 'Ｂ': 'B', 'Ｃ': 'C', 'Ｄ': 'D',
+                             'ａ': 'A', 'ｂ': 'B', 'ｃ': 'C', 'ｄ': 'D'}
+            inline_options = {}
+            for m in re.finditer(inline_pattern, combined):
+                letter = m.group(1)
+                letter = fullwidth_map.get(letter, letter).upper()
+                inline_options[letter] = m.group(2).strip()
             if inline_options:
                 options = inline_options
                 # 把題幹切到第一個選項之前
-                question_lines = [re.split(r'[（(][A-D][）)]', combined, 1)[0].strip()]
+                question_lines = [re.split(r'[（(][A-DＡＢＣＤa-d][）)]', combined, 1)[0].strip()]
 
         if not question_lines or len(options) < 1:
             return None
@@ -137,15 +143,16 @@ class QuestionBankParser:
     
     def _parse_answer_section(self, section: str) -> Optional[Dict]:
         """解析解答段落（解釋可選）"""
-        # 找出答案選項（A/B/C/D，含全形字母）
-        answer_match = re.search(r'[（(]([A-DＡＢＣＤ])[）)]', section)
+        # 找出答案選項（A/B/C/D，含全形、大小寫）
+        answer_match = re.search(r'[（(]\s*([A-DＡＢＣＤa-d])\s*[）)]', section)
         if not answer_match:
             print("警告: 無法找到正確答案")
             return None
         
         letter = answer_match.group(1)
-        fullwidth_map = {'Ａ': 'A', 'Ｂ': 'B', 'Ｃ': 'C', 'Ｄ': 'D'}
-        correct_answer = fullwidth_map.get(letter, letter)
+        fullwidth_map = {'Ａ': 'A', 'Ｂ': 'B', 'Ｃ': 'C', 'Ｄ': 'D',
+                         'ａ': 'A', 'ｂ': 'B', 'ｃ': 'C', 'ｄ': 'D'}
+        correct_answer = fullwidth_map.get(letter, letter).upper()
         
         # 移除答案部分後的剩餘內容作為解釋（可為空）
         lines = section.strip().split('\n')
