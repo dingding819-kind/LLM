@@ -348,5 +348,115 @@
     "score": 0,
     "concept_to_reinforce": "雅量",
     "scope": "雅量"
+  },
+  {
+    "timestamp": "2025-12-22T15:03:55.024730",
+    "question_id": 1,
+    "correct": true,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "數與數線／整數的加減運算"
+  },
+  {
+    "timestamp": "2025-12-22T15:13:10.930217",
+    "question_id": 2,
+    "correct": true,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "指數律與科學記號"
+  },
+  {
+    "timestamp": "2025-12-22T15:13:25.471026",
+    "question_id": 3,
+    "correct": true,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "分數的運算／正負分數的乘除與四則運算"
+  },
+  {
+    "timestamp": "2025-12-22T15:20:06.993403",
+    "question_id": 1,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "數與數線／數的大小與絕對值",
+    "scope": "數與數線／數的大小與絕對值"
+  },
+  {
+    "timestamp": "2025-12-22T15:25:22.582516",
+    "question_id": 1,
+    "correct": true,
+    "subject": "自然",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "不斷運動的小粒子"
+  },
+  {
+    "timestamp": "2025-12-22T15:27:07.378094",
+    "question_id": 1,
+    "correct": true,
+    "subject": "英語",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "問年紀及回答，基數（10–19）"
+  },
+  {
+    "timestamp": "2025-12-22T15:27:19.863906",
+    "question_id": 2,
+    "correct": false,
+    "subject": "英語",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "Where 引導的問句及答句，問地方，場所介詞，介紹國家",
+    "scope": "Where 引導的問句及答句，問地方，場所介詞，介紹國家"
+  },
+  {
+    "timestamp": "2025-12-22T15:27:39.683206",
+    "question_id": 1,
+    "correct": false,
+    "subject": "英語",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "Where 引導的問句及答句，問地方，場所介詞，介紹國家",
+    "scope": "Where 引導的問句及答句，問地方，場所介詞，介紹國家"
+  },
+  {
+    "timestamp": "2025-12-22T15:28:00.485376",
+    "question_id": 3,
+    "correct": true,
+    "subject": "英語",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "Where 引導的問句及答句，問地方，場所介詞，介紹國家"
+  },
+  {
+    "timestamp": "2025-12-22T15:28:16.256818",
+    "question_id": 4,
+    "correct": true,
+    "subject": "英語",
+    "time_spent": 0.0,
+    "score": 100,
+    "concept_to_reinforce": "",
+    "scope": "Where 引導的問句及答句，問地方，場所介詞，介紹國家"
+  },
+  {
+    "timestamp": "2025-12-22T15:28:39.203370",
+    "question_id": 5,
+    "correct": false,
+    "subject": "英語",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "Where 引導的問句及答句，問地方，場所介詞，介紹國家",
+    "scope": "Where 引導的問句及答句，問地方，場所介詞，介紹國家"
   }
 ]

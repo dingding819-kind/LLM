@@ -4,6 +4,7 @@ Interactive learning assistant using LLM
 """
 
 import json
+import re
 from pathlib import Path
 from typing import Dict, List, Optional
 from models import LLMClient, QuestionGenerator, ErrorAnalyzer
@@ -767,7 +768,8 @@ def interactive_learning_session():
         print("沒有選擇任何科目，使用預設科目：數學")
         selected_subjects = ["數學"]
     else:
-        selected_subjects = [s.strip() for s in subjects_input.split(',') if s.strip()]
+        # 支援半形/全形逗號分隔
+        selected_subjects = [s.strip() for s in re.split(r'[，,]', subjects_input) if s.strip()]
 
     # 先校正科目名稱，確保首次選擇也能正確載入題庫
     corrected_subjects = [app.correct_subject_name(s) for s in selected_subjects]
