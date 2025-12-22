@@ -478,5 +478,15 @@
     "score": 0,
     "concept_to_reinforce": "公民:個人成長與群體-學校生活",
     "scope": "公民:個人成長與群體-學校生活"
+  },
+  {
+    "timestamp": "2025-12-22T16:02:08.187136",
+    "question_id": 1,
+    "correct": false,
+    "subject": "數學",
+    "time_spent": 0.0,
+    "score": 0,
+    "concept_to_reinforce": "一元一次方程式／以符號代表數",
+    "scope": "一元一次方程式／以符號代表數"
   }
 ]
