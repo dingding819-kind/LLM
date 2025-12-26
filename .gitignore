@@ -43,4 +43,14 @@ env/
 
 # API keys and sensitive config
 config_local.py
-knowledgefuelstation-7416fc567ec8.json
+
+# Google Cloud Service Account Keys (NEVER upload these!)
+knowledgefuelstation-*.json
+*.credentials.json
+
+# Student data and reports (contains personal information)
+students/
+report_*.txt
+学生报告_*.txt
+review_*.txt
+demo_report_*.txt
