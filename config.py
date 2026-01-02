@@ -15,7 +15,7 @@ LLM_PROVIDER = os.getenv("LLM_PROVIDER", "vertexai")
 # Service Account JSON file path for Vertex AI
 SERVICE_ACCOUNT_JSON_PATH = os.getenv(
     "SERVICE_ACCOUNT_JSON_PATH",
-    "knowledgefuelstation-d1be8ee129d2.json"
+    "knowledgefuelstation-cd254163d73b.json"
 )
 
 # Load service account credentials if available

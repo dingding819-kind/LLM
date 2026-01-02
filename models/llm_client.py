@@ -65,21 +65,37 @@ class LLMClient:
             try:
                 import vertexai
                 from vertexai.generative_models import GenerativeModel
+                from google.oauth2 import service_account
+                
                 self._GenerativeModel = GenerativeModel
                 
                 project = GOOGLE_PROJECT_ID or None
                 location = GOOGLE_LOCATION or "us-central1"
                 
                 # Set up authentication using service account JSON if available
-                if SERVICE_ACCOUNT_INFO and os.path.exists(SERVICE_ACCOUNT_JSON_PATH):
-                    # Set the credentials environment variable
+                credentials = None
+                if os.path.exists(SERVICE_ACCOUNT_JSON_PATH):
+                    # Set the credentials environment variable for ADC
                     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.abspath(SERVICE_ACCOUNT_JSON_PATH)
+                    try:
+                        # Load service account credentials
+                        credentials = service_account.Credentials.from_service_account_file(
+                            SERVICE_ACCOUNT_JSON_PATH
+                        )
+                    except Exception as cred_error:
+                        print(f"Warning: Could not load service account credentials: {cred_error}")
                 
                 # Initialize Vertex AI with project and location
                 if project:
-                    vertexai.init(project=project, location=location)
+                    if credentials:
+                        vertexai.init(project=project, location=location, credentials=credentials)
+                    else:
+                        vertexai.init(project=project, location=location)
                 else:
-                    vertexai.init(location=location)
+                    if credentials:
+                        vertexai.init(location=location, credentials=credentials)
+                    else:
+                        vertexai.init(location=location)
                     
             except Exception as e:
                 print(f"Error initializing Vertex AI client: {e}")
